@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte EUDR</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .logos {
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .logos img {
+            max-height: 50px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        h1 {
+            color: #0056b3;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .section-title {
+            background-color: #f4f4f4;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            border-left: 4px solid #0056b3;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logos">
+            {% if logos.ue %}<img src="{{ logos.ue }}" alt="Unión Europea">{% endif %}
+            {% if logos.gob %}<img src="{{ logos.gob }}" alt="Gobierno">{% endif %}
+            {% if logos.al_invest %}<img src="{{ logos.al_invest }}" alt="AL INVEST">{% endif %}
+        </div>
+        <h1>{{ toolLabel }}</h1>
+        <p>Fecha de Evaluación: {{ session.createdAt|date('d/m/Y') }}</p>
+    </div>
+
+    {% if session.organization %}
+    <div class="section-title">Datos de la Empresa</div>
+    <table>
+        <tr>
+            <th>Razón Social</th>
+            <td>{{ session.organization.name }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if session.temporaryData.results is defined %}
+    <div class="section-title">Resumen de Cumplimiento por Áreas</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Área Estratégica</th>
+                <th>Puntaje Obtenido</th>
+                <th>Máximo Posible</th>
+                <th>Porcentaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for areaId, res in session.temporaryData.results %}
+            <tr>
+                <td>Área {{ areaId }}</td>
+                <td>{{ res.score }}</td>
+                <td>{{ res.max }}</td>
+                <td>{{ res.percentage|number_format(1) }}%</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th colspan="3" style="text-align: right;">Cumplimiento Global:</th>
+                <th>{{ session.temporaryData.global_percentage|number_format(1) }}%</th>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    <div class="section-title">Respuestas a los Criterios</div>
+    {% if evaluation %}
+        {% for answer in evaluation.answers %}
+            <div style="margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+                <p><strong>Criterio {{ answer.indicator.orderNumber }}:</strong> {{ answer.indicator.criterion }}</p>
+                <p><strong>Puntuación:</strong> {{ answer.score }} / 10</p>
+                
+                {% if answer.hasDocumentation %}
+                    <p><strong>Documentación:</strong> Sí</p>
+                    <p><strong>Ubicación:</strong> {{ answer.documentationLocation }}</p>
+                    {% if answer.verifiedDocument %}
+                        <p><strong>Doc Verificado:</strong> {{ answer.verifiedDocument }}</p>
+                    {% endif %}
+                {% else %}
+                    <p><strong>Documentación:</strong> No</p>
+                {% endif %}
+                
+                {% if answer.observation %}
+                    <p><strong>Observación:</strong> {{ answer.observation }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No se encontraron respuestas guardadas (quizás la sesión no fue completada formalmente en base de datos).</p>
+    {% endif %}
+
+</body>
+</html>

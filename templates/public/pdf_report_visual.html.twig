@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte EUDR</title>
+    <style>
+        @page {
+            margin: 40px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            font-size: 11px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        /* Portada */
+        .cover-page {
+            text-align: center;
+            padding-top: 150px;
+        }
+        .cover-title {
+            font-size: 28px;
+            color: #0056b3;
+            font-weight: bold;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+        .cover-logos {
+            margin-top: 50px;
+        }
+        .cover-logos img {
+            max-height: 80px;
+            margin: 0 15px;
+            display: inline-block;
+        }
+        .cover-footer {
+            margin-top: 100px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Encabezados de Área */
+        .area-header {
+            background-color: #e6f2ff; /* Celeste claro */
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #004085;
+            margin-bottom: 20px;
+            border: 1px solid #b8daff;
+            border-radius: 4px;
+        }
+
+        /* Columnas para dompdf (flotantes) */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        .col-left {
+            float: left;
+            width: 60%;
+        }
+        .col-right {
+            float: right;
+            width: 35%;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+        }
+        td.text-center {
+            text-align: center;
+        }
+        
+        /* Resultados numéricos */
+        .score-box {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .score-danger { color: #dc3545; }
+        .score-warning { color: #ffc107; }
+        .score-success { color: #198754; }
+
+        /* Título Hoja de Desafíos */
+        .challenges-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0056b3;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PORTADA -->
+    <div class="cover-page page-break">
+        <div class="cover-title">
+            {{ toolLabel }}
+        </div>
+        
+        {% if logos is defined %}
+        <div class="cover-logos">
+            {% if logos.ue %}<img src="{{ logos.ue }}" alt="Unión Europea">{% endif %}
+            {% if logos.gob %}<img src="{{ logos.gob }}" alt="Gobierno">{% endif %}
+            {% if logos.al_invest %}<img src="{{ logos.al_invest }}" alt="AL INVEST">{% endif %}
+        </div>
+        {% endif %}
+
+        <div class="cover-footer">
+            <p>Empresa: <strong>{{ session.organization.name ?? 'No especificada' }}</strong></p>
+            <p>Fecha de Generación: {{ "now"|date('d/m/Y H:i') }}</p>
+        </div>
+    </div>
+
+    <!-- HOJAS DE ÁREAS -->
+    {% for area in areasData %}
+    <div class="page-break">
+        <div class="area-header">
+            {{ area.name }}
+        </div>
+
+        <div class="clearfix">
+            <div class="col-left">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="10%">Nro</th>
+                            <th width="70%">Criterio</th>
+                            <th width="20%">Resultado<br><small>(sobre 10)</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in area.items %}
+                            {% set scoreColor = 'score-danger' %}
+                            {% if item.score >= 9 %}
+                                {% set scoreColor = 'score-success' %}
+                            {% elseif item.score >= 6 %}
+                                {% set scoreColor = 'score-warning' %}
+                            {% endif %}
+                            
+                            <tr>
+                                <td class="text-center">{{ item.number }}</td>
+                                <td>{{ item.criterion|raw }}</td>
+                                <td class="text-center score-box {{ scoreColor }}">{{ item.score }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-right">
+                {% if area.chartBase64 %}
+                    <img src="{{ area.chartBase64 }}" alt="Gráfico del Área" style="max-width: 100%; height: auto;">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- HOJA FINAL DE DESAFÍOS Y BRECHAS -->
+    <div>
+        <div class="challenges-title">
+            Reporte de Desafíos y Brechas / Plan de Mejora
+        </div>
+        
+        {% if challenges|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th width="15%">Área Estratégica</th>
+                    <th width="20%">Criterio</th>
+                    <th width="5%">Nro</th>
+                    <th width="20%">Riesgo Identificado</th>
+                    <th width="10%">Plazo</th>
+                    <th width="10%">Responsable</th>
+                    <th width="20%">Acción / Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plan in challenges %}
+                <tr>
+                    <td>{{ plan.areaName }}</td>
+                    <td>{{ plan.criterion }}</td>
+                    <td class="text-center">{{ plan.number }}</td>
+                    <td>{{ plan.risk }}</td>
+                    <td>{{ plan.timeframe }}</td>
+                    <td>{{ plan.responsible }}</td>
+                    <td>{{ plan.action }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="text-align:center; padding: 20px; border: 1px dashed #ccc;">
+            No se identificaron brechas críticas (puntajes menores o iguales a 5) en esta evaluación.
+        </p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

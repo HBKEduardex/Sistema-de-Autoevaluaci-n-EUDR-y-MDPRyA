@@ -1,0 +1,59 @@
+{% extends 'public_base.html.twig' %}
+
+{% block content %}
+<div class="card shadow-lg border-0 mb-5 border-top border-warning border-5">
+    <div class="card-header bg-white pt-4 pb-3">
+        <h3 class="fw-bold m-0 text-dark">C. Reporte de Desafíos y Brechas</h3>
+        <p class="text-muted mt-2 mb-0">Debe plantear una acción de mejora para los indicadores donde haya obtenido un puntaje de 5 o menos.</p>
+    </div>
+    <div class="card-body p-4 p-md-5">
+        
+        {% if answers|length == 0 %}
+            <div class="text-center py-5">
+                <h4 class="text-success"><i class="bi bi-check-circle-fill"></i> ¡Felicidades!</h4>
+                <p>No tiene indicadores críticos que requieran un plan de mejora inmediato.</p>
+                <a href="{{ path('app_public_success', {'token': token}) }}" class="btn btn-primary mt-3">Finalizar Proceso</a>
+            </div>
+        {% else %}
+            <form action="{{ path('app_public_challenges') }}" method="POST">
+                
+                {% for ans in answers %}
+                    {% set ind = ans.indicator %}
+                    <div class="card bg-light border-0 mb-4">
+                        <div class="card-body">
+                            <span class="badge bg-danger mb-2">Puntaje: {{ ans.score }}/10</span>
+                            <h5 class="fw-bold text-dark">{{ ind.area }}</h5>
+                            <p class="text-secondary fw-bold mb-1">{{ ind.criterion }}</p>
+                            <p class="small text-muted">{{ ind.name }}</p>
+
+                            <div class="row g-3 mt-3">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold">Riesgo o Comentario Identificado</label>
+                                    <input type="text" class="form-control" value="{{ ans.observation }}" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold text-primary">Responsable</label>
+                                    <input type="text" class="form-control" name="resp_{{ ind.id }}" placeholder="Ej. Gerente, RRHH..." required oninvalid="this.setCustomValidity('Por favor, complete este campo.')" oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold text-primary">Plazo</label>
+                                    <input type="text" class="form-control" name="time_{{ ind.id }}" placeholder="Ej. 2 meses, 1 semana..." required oninvalid="this.setCustomValidity('Por favor, complete este campo.')" oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold text-primary">Acción Específica a Realizar</label>
+                                    <textarea class="form-control" name="action_{{ ind.id }}" rows="2" placeholder="Describa la acción correctiva..." required oninvalid="this.setCustomValidity('Por favor, complete este campo.')" oninput="this.setCustomValidity('')"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="d-grid mt-5">
+                    <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">Confirmar Planes y Finalizar</button>
+                </div>
+            </form>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

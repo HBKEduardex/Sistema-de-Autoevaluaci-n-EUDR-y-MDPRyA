@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Institucional - EUDR{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 text-gray-800">DASHBOARD DE CUMPLIMIENTO EUDR REGLAMENTO (UE) 2023/1115</h1>
+</div>
+
+<div class="row mb-4">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Evaluaciones Registradas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_evaluations }} empresas evaluadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Cumplimiento Global Promedio</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.avg_compliance|number_format(1) }}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Resumen General por Áreas</h6>
+            </div>
+            <div class="card-body">
+                <p>El sistema ahora recolecta dinámicamente las evaluaciones desde el formulario público, almacenando las respuestas ponderadas en áreas estratégicas.</p>
+                <div class="chart-bar" style="height: 300px; width: 100%;">
+                    <canvas id="areasChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/chart.min.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('areasChart');
+        if (ctx) {
+            const chartDataRaw = {{ chartData|raw }};
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartDataRaw.labels,
+                    datasets: [{
+                        label: 'Nivel de Cumplimiento Promedio (%)',
+                        backgroundColor: '#4e73df',
+                        hoverBackgroundColor: '#2e59d9',
+                        borderColor: '#4e73df',
+                        data: chartDataRaw.data,
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'public_base.html.twig' %}
+
+{% block content %}
+<div class="card shadow-lg border-0">
+    <div class="card-body p-5 text-center">
+        <!-- Logos Institucionales -->
+        <div class="d-flex justify-content-center align-items-center mb-4 gap-4 flex-wrap">
+            <img src="{{ asset('images/logo presidencia.png') }}" alt="Gobierno" style="max-height: 120px;">
+            <img src="{{ asset('images/al_invest.png') }}" alt="AL INVEST" style="max-height: 120px;">
+        </div>
+
+        <h1 class="display-5 mb-4">Evaluación EUDR</h1>
+        <p class="lead mb-4 text-secondary">Esta herramienta le guiará a través de una serie de indicadores para evaluar el nivel de cumplimiento y riesgo de su organización respecto a las normativas vigentes.</p>
+        
+        <div class="alert alert-info text-start mb-5">
+            <strong>Instrucciones:</strong>
+            <ul class="mb-0 mt-2">
+                <li>Primero deberá leer el reglamento correspondiente.</li>
+                <li>Luego le solicitaremos sus datos para enviarle los resultados consolidados.</li>
+                <li>Finalmente, seleccionará la herramienta y responderá una breve encuesta por áreas.</li>
+            </ul>
+        </div>
+        
+        <a href="{{ path('app_public_regulations') }}" class="btn btn-primary btn-lg px-5 py-3 fw-bold shadow-sm">INICIAR PROCESO</a>
+    </div>
+</div>
+{% endblock %}

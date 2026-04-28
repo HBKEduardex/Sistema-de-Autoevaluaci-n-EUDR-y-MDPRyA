@@ -1,0 +1,138 @@
+{% extends 'public_base.html.twig' %}
+
+{% block content %}
+<div class="card shadow-lg border-0 mb-5">
+    <div class="card-header bg-primary text-white pt-4 pb-3 text-center">
+        <h3 class="fw-bold m-0">B. Resultados de la Evaluación</h3>
+    </div>
+    <div class="card-body p-4 p-md-5">
+        {% set data = session.temporaryData %}
+        {% set results = data.results ?? [] %}
+        {% set global = data.global_percentage ?? 0 %}
+
+        <div class="text-center mb-5">
+            <h1 class="display-3 fw-bold {% if global >= 90 %}text-success{% elseif global > 50 %}text-warning{% else %}text-danger{% endif %}">
+                {{ global|number_format(1) }}%
+            </h1>
+            <h4 class="text-secondary">Cumplimiento Global EUDR</h4>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="chart-container" style="position: relative; height:40vh; width:100%">
+                    <canvas id="resultsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Área Estratégica</th>
+                    <th class="text-center">Puntaje</th>
+                    <th class="text-center">Resultado (%)</th>
+                    <th class="text-center">Nivel</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set areasNames = {
+                    1: '1. Capacidad Organizativa',
+                    2: '2. Disponibilidad de la Información',
+                    3: '3. Capacidad de Autoevaluación',
+                    4: '4. Medidas para Minimizar el Riesgo'
+                } %}
+
+                {% for i, r in results %}
+                    {% set perc = r.percentage %}
+                    {% set color = 'danger' %}
+                    {% set nivel = 'Crítico (Acción Inmediata)' %}
+                    {% if perc >= 90 %}
+                        {% set color = 'success' %}
+                        {% set nivel = 'Sólido (Mantener)' %}
+                    {% elseif perc > 50 %}
+                        {% set color = 'warning' %}
+                        {% set nivel = 'Moderado (Seguimiento)' %}
+                    {% endif %}
+
+                    <tr>
+                        <td class="fw-bold">{{ areasNames[i] }}</td>
+                        <td class="text-center">{{ r.score }} / {{ r.max }}</td>
+                        <td class="text-center fw-bold text-{{ color }}">{{ perc|number_format(1) }}%</td>
+                        <td class="text-center"><span class="badge bg-{{ color }}">{{ nivel }}</span></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="alert alert-info mt-5 border-start border-info border-5">
+            <h5 class="fw-bold"><i class="bi bi-info-circle"></i> Siguiente Paso: Plan de Mejora</h5>
+            <p class="mb-0">A continuación, el sistema ha filtrado los indicadores donde su puntuación fue 5 o menor (nivel crítico). Deberá establecer un plan de mejora para cada uno de ellos.</p>
+        </div>
+
+        <div class="d-grid mt-4">
+            <a href="{{ path('app_public_challenges') }}" class="btn btn-primary btn-lg fw-bold shadow-sm">Continuar al Plan de Mejora</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/chart.min.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('resultsChart');
+        if (ctx) {
+            // Prepare data from Twig
+            const labels = [];
+            const data = [];
+            const colors = [];
+
+            {% set areasNames = {
+                1: 'Capacidad Organizativa',
+                2: 'Disponibilidad de la Información',
+                3: 'Capacidad de Autoevaluación',
+                4: 'Medidas para Minimizar el Riesgo'
+            } %}
+            
+            {% set chart_results = session.temporaryData.results ?? [] %}
+            {% for i, r in chart_results %}
+                labels.push("{{ areasNames[i] }}");
+                data.push({{ r.percentage|number_format(1) }});
+                {% if r.percentage >= 90 %}
+                    colors.push('#198754');
+                {% elseif r.percentage > 50 %}
+                    colors.push('#ffc107');
+                {% else %}
+                    colors.push('#dc3545');
+                {% endif %}
+            {% endfor %}
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Cumplimiento (%)',
+                        backgroundColor: colors,
+                        data: data,
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

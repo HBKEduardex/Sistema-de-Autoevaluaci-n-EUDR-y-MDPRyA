@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Autoevaluación EUDR{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .public-container { max-width: 800px; margin: 0 auto; margin-top: 50px; }
+        .institutional-header { text-align: center; margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container public-container">
+        <div class="institutional-header">
+            <h2 class="text-primary fw-bold">Viceministerio de Comercio y Logística Interna</h2>
+            <p class="text-muted fs-5">Sistema de Autoevaluación - Reglamento EUDR</p>
+        </div>
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        
+        <footer class="mt-5 text-center text-muted small pb-4">
+            &copy; 2026 VCLI. Todos los derechos reservados.
+        </footer>
+    </div>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

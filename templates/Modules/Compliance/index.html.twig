@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evaluaciones de Cumplimiento - EUDR{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Evaluaciones de Cumplimiento</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="#" class="btn btn-sm btn-primary">Nueva Evaluación</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Organización</th>
+                    <th>Fecha Registro</th>
+                    <th>Puntuación</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eval in evaluations %}
+                    <tr>
+                        <td>#{{ eval.id }}</td>
+                        <td><strong>{{ eval.organization }}</strong></td>
+                        <td>{{ eval.date }}</td>
+                        <td>
+                            {% if eval.score %}
+                                {{ eval.score }} / 100
+                            {% else %}
+                                <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if eval.status == 'draft' %}
+                                <span class="badge bg-secondary">Borrador</span>
+                            {% else %}
+                                <span class="badge bg-success">Completado</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_compliance_evaluate', {'id': eval.id}) }}" class="btn btn-sm btn-outline-primary">
+                                {% if eval.status == 'draft' %}Continuar{% else %}Ver{% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="6" class="text-center text-muted">No hay evaluaciones registradas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

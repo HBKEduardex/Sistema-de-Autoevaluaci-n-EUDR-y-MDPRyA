@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Completar Evaluación - EUDR{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Evaluación de Cumplimiento</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <span class="badge bg-secondary fs-6 me-2">Eval: #{{ evaluation.id }}</span>
+        <span class="badge bg-primary fs-6">{{ evaluation.organization }}</span>
+    </div>
+</div>
+
+<form action="#" method="POST">
+    {% for area, indicators in areas %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light">
+                <h4 class="mb-0 text-primary">{{ area }}</h4>
+            </div>
+            <div class="card-body">
+                {% for ind in indicators %}
+                    <div class="row mb-4 pb-3 {% if not loop.last %}border-bottom{% endif %}">
+                        <div class="col-md-5">
+                            <h5>{{ ind.name }} {% if ind.critical %}<span class="badge bg-danger">CRÍTICO</span>{% endif %}</h5>
+                            <p class="text-muted small">{{ ind.desc }}</p>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-bold">Puntuación (1-10)</label>
+                                    <input type="number" class="form-control form-control-lg text-center" name="score[{{ ind.id }}]" min="1" max="10" placeholder="-" required>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label class="form-label fw-bold">Evidencia / Adjunto</label>
+                                    <input class="form-control" type="file" name="evidence[{{ ind.id }}]">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Observaciones</label>
+                                    <textarea class="form-control" name="observation[{{ ind.id }}]" rows="2" placeholder="Escriba un comentario o justificación..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
+        <a href="{{ path('app_compliance_index') }}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+        <button type="submit" class="btn btn-primary btn-lg">Guardar Evaluación</button>
+    </div>
+</form>
+
+{% endblock %}

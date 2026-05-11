@@ -104,19 +104,19 @@ class __TwigTemplate_cb54caccd14d3fa08c23c842f6d49248 extends Template
                     <div class=\"row g-3 justify-content-center\">
                         <div class=\"col-md-8\">
                             <div class=\"form-check mb-3\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool1\" value=\"tool1\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool1\" value=\"tool1\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"tool1\">
                                     <strong>Herramienta 1:</strong> Evaluación de cumplimiento
                                 </label>
                             </div>
                             <div class=\"form-check mb-3\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool2\" value=\"tool2\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool2\" value=\"tool2\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"tool2\">
                                     <strong>Herramienta 2:</strong> Gestión de riesgos
                                 </label>
                             </div>
                             <div class=\"form-check\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"toolBoth\" value=\"both\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"toolBoth\" value=\"both\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"toolBoth\">
                                     Ambas herramientas (Total: 36 preguntas)
                                 </label>
@@ -205,19 +205,19 @@ class __TwigTemplate_cb54caccd14d3fa08c23c842f6d49248 extends Template
                     <div class=\"row g-3 justify-content-center\">
                         <div class=\"col-md-8\">
                             <div class=\"form-check mb-3\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool1\" value=\"tool1\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool1\" value=\"tool1\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"tool1\">
                                     <strong>Herramienta 1:</strong> Evaluación de cumplimiento
                                 </label>
                             </div>
                             <div class=\"form-check mb-3\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool2\" value=\"tool2\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"tool2\" value=\"tool2\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"tool2\">
                                     <strong>Herramienta 2:</strong> Gestión de riesgos
                                 </label>
                             </div>
                             <div class=\"form-check\">
-                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"toolBoth\" value=\"both\" required>
+                                <input class=\"form-check-input fs-5\" type=\"radio\" name=\"selected_tool\" id=\"toolBoth\" value=\"both\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label fs-5\" for=\"toolBoth\">
                                     Ambas herramientas (Total: 36 preguntas)
                                 </label>

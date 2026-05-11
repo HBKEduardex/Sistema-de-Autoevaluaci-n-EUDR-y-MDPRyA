@@ -41,11 +41,14 @@ class PdfController extends AbstractController
             $toolLabel = 'Evaluación de Cumplimiento y Gestión de Riesgos EUDR';
         }
 
+        $contact = $em->getRepository(\App\Modules\Survey\Contact::class)->findOneBy(['surveySession' => $session]);
+        $companyName = $contact ? $contact->getCompanyName() : 'No especificada';
+
         // Obtener ruta absoluta de logos para DomPDF
         $projectDir = $this->getParameter('kernel.project_dir');
         
         $logos = [
-            'ue' => $this->imageToBase64($projectDir . '/public/images/LOGO-ES-Financiado-por-la-Union-Europea-POS-2048x430-1-651380_1080x430.jpg'),
+            'ue' => $this->imageToBase64($projectDir . '/public/images/eudr.png'),
             'gob' => $this->imageToBase64($projectDir . '/public/images/logo presidencia.png'),
             'al_invest' => $this->imageToBase64($projectDir . '/public/images/al_invest.png'),
         ];
@@ -80,6 +83,9 @@ class PdfController extends AbstractController
                     'number' => $indicator->getOrderNumber(),
                     'criterion' => '<b>' . htmlspecialchars($indicator->getCriterion() ?? '') . '</b><br>' . htmlspecialchars($indicator->getName() ?? ''),
                     'score' => $ans->getScore(),
+                    'docLocation' => $ans->getDocumentationLocation(),
+                    'verifiedDoc' => $ans->getVerifiedDocument(),
+                    'observation' => $ans->getObservation(),
                 ];
                 $areasData[$areaId]['totalScore'] += $ans->getScore();
                 $areasData[$areaId]['maxScore'] += 10;
@@ -158,6 +164,7 @@ class PdfController extends AbstractController
         // Renderizar HTML usando la nueva plantilla
         $html = $this->renderView('public/pdf_report_visual.html.twig', [
             'session' => $session,
+            'companyName' => $companyName,
             'toolLabel' => $toolLabel,
             'logos' => $logos,
             'areasData' => $areasData,
@@ -171,7 +178,7 @@ class PdfController extends AbstractController
         
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         
         $pdfOutput = $dompdf->output();

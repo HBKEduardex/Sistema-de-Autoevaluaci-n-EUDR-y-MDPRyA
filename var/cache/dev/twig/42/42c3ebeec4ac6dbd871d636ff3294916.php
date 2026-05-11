@@ -79,9 +79,13 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-top: 50px;
         }
         .cover-logos img {
-            max-height: 80px;
-            margin: 0 15px;
+            max-height: 60px; /* Reducido */
+            margin: 0 25px; /* Más espacio para separar */
             display: inline-block;
+            vertical-align: middle;
+        }
+        .cover-logos img.logo-center {
+            max-height: 160px; /* Masivo en comparación */
         }
         .cover-footer {
             margin-top: 100px;
@@ -100,6 +104,7 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-bottom: 20px;
             border: 1px solid #b8daff;
             border-radius: 4px;
+            page-break-after: avoid;
         }
 
         /* Columnas para dompdf (flotantes) */
@@ -108,34 +113,42 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             clear: both;
             display: table;
         }
-        .col-left {
-            float: left;
-            width: 60%;
-        }
-        .col-right {
-            float: right;
-            width: 35%;
+        .chart-container {
             text-align: center;
-            padding-top: 20px;
+            margin-bottom: 30px;
+            page-break-after: avoid;
+        }
+        .chart-container img {
+            max-height: 250px;
         }
 
         /* Tablas */
         table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+        thead {
+            display: table-header-group;
+        }
+        tr {
+            page-break-inside: avoid;
+        }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
-            vertical-align: middle;
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         th {
             background-color: #f8f9fa;
             font-weight: bold;
             color: #495057;
             text-align: center;
+            vertical-align: middle;
         }
         td.text-center {
             text-align: center;
@@ -158,6 +171,7 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-bottom: 20px;
             text-align: center;
             text-transform: uppercase;
+            page-break-after: avoid;
         }
     </style>
 </head>
@@ -167,152 +181,160 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
     <div class=\"cover-page page-break\">
         <div class=\"cover-title\">
             ";
-        // line 125
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["toolLabel"]) || array_key_exists("toolLabel", $context) ? $context["toolLabel"] : (function () { throw new RuntimeError('Variable "toolLabel" does not exist.', 125, $this->source); })()), "html", null, true);
+        // line 139
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["toolLabel"]) || array_key_exists("toolLabel", $context) ? $context["toolLabel"] : (function () { throw new RuntimeError('Variable "toolLabel" does not exist.', 139, $this->source); })()), "html", null, true);
         yield "
         </div>
         
         ";
-        // line 128
+        // line 142
         if (array_key_exists("logos", $context)) {
-            // line 129
+            // line 143
             yield "        <div class=\"cover-logos\">
             ";
-            // line 130
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 130, $this->source); })()), "ue", [], "any", false, false, false, 130)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 144
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 144, $this->source); })()), "ue", [], "any", false, false, false, 144)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield "<img src=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 130, $this->source); })()), "ue", [], "any", false, false, false, 130), "html", null, true);
-                yield "\" alt=\"Unión Europea\">";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 144, $this->source); })()), "ue", [], "any", false, false, false, 144), "html", null, true);
+                yield "\" alt=\"EUDR\">";
             }
-            // line 131
+            // line 145
             yield "            ";
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 131, $this->source); })()), "gob", [], "any", false, false, false, 131)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 145, $this->source); })()), "gob", [], "any", false, false, false, 145)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield "<img src=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 131, $this->source); })()), "gob", [], "any", false, false, false, 131), "html", null, true);
-                yield "\" alt=\"Gobierno\">";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 145, $this->source); })()), "gob", [], "any", false, false, false, 145), "html", null, true);
+                yield "\" alt=\"Gobierno\" class=\"logo-center\">";
             }
-            // line 132
+            // line 146
             yield "            ";
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 132, $this->source); })()), "al_invest", [], "any", false, false, false, 132)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 146, $this->source); })()), "al_invest", [], "any", false, false, false, 146)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
                 yield "<img src=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 132, $this->source); })()), "al_invest", [], "any", false, false, false, 132), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["logos"]) || array_key_exists("logos", $context) ? $context["logos"] : (function () { throw new RuntimeError('Variable "logos" does not exist.', 146, $this->source); })()), "al_invest", [], "any", false, false, false, 146), "html", null, true);
                 yield "\" alt=\"AL INVEST\">";
             }
-            // line 133
+            // line 147
             yield "        </div>
         ";
         }
-        // line 135
+        // line 149
         yield "
         <div class=\"cover-footer\">
             <p>Empresa: <strong>";
-        // line 137
-        yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["session"] ?? null), "organization", [], "any", false, true, false, 137), "name", [], "any", true, true, false, 137) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["session"]) || array_key_exists("session", $context) ? $context["session"] : (function () { throw new RuntimeError('Variable "session" does not exist.', 137, $this->source); })()), "organization", [], "any", false, false, false, 137), "name", [], "any", false, false, false, 137)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["session"]) || array_key_exists("session", $context) ? $context["session"] : (function () { throw new RuntimeError('Variable "session" does not exist.', 137, $this->source); })()), "organization", [], "any", false, false, false, 137), "name", [], "any", false, false, false, 137), "html", null, true)) : ("No especificada"));
+        // line 151
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["companyName"]) || array_key_exists("companyName", $context) ? $context["companyName"] : (function () { throw new RuntimeError('Variable "companyName" does not exist.', 151, $this->source); })()), "html", null, true);
         yield "</strong></p>
-            <p>Fecha de Generación: ";
-        // line 138
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "d/m/Y H:i"), "html", null, true);
-        yield "</p>
         </div>
     </div>
 
     <!-- HOJAS DE ÁREAS -->
     ";
-        // line 143
+        // line 156
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["areasData"]) || array_key_exists("areasData", $context) ? $context["areasData"] : (function () { throw new RuntimeError('Variable "areasData" does not exist.', 143, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["areasData"]) || array_key_exists("areasData", $context) ? $context["areasData"] : (function () { throw new RuntimeError('Variable "areasData" does not exist.', 156, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["area"]) {
-            // line 144
+            // line 157
             yield "    <div class=\"page-break\">
         <div class=\"area-header\">
             ";
-            // line 146
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "name", [], "any", false, false, false, 146), "html", null, true);
+            // line 159
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "name", [], "any", false, false, false, 159), "html", null, true);
             yield "
         </div>
 
-        <div class=\"clearfix\">
-            <div class=\"col-left\">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width=\"10%\">Nro</th>
-                            <th width=\"70%\">Criterio</th>
-                            <th width=\"20%\">Resultado<br><small>(sobre 10)</small></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ";
-            // line 160
+        ";
+            // line 162
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["area"], "chartBase64", [], "any", false, false, false, 162)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 163
+                yield "        <div class=\"chart-container\">
+            <img src=\"";
+                // line 164
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "chartBase64", [], "any", false, false, false, 164), "html", null, true);
+                yield "\" alt=\"Gráfico del Área\">
+        </div>
+        ";
+            }
+            // line 167
+            yield "
+        <table>
+            <thead>
+                <tr>
+                    <th style=\"width: 4%;\">Nro</th>
+                    <th style=\"width: 22%;\">Criterio</th>
+                    <th style=\"width: 25%;\">Indique qué documentación tiene y dónde está almacenada según este criterio</th>
+                    <th style=\"width: 15%;\">¿Cuál es el documento verificado?</th>
+                    <th style=\"width: 25%;\">Observación / Riesgo Identificado</th>
+                    <th style=\"width: 9%;\">Resultado<br><small>(sobre 10)</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                ";
+            // line 180
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "items", [], "any", false, false, false, 160));
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "items", [], "any", false, false, false, 180));
             foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
-                // line 161
-                yield "                            ";
+                // line 181
+                yield "                    ";
                 $context["scoreColor"] = "score-danger";
-                // line 162
-                yield "                            ";
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 162) >= 9)) {
-                    // line 163
-                    yield "                                ";
+                // line 182
+                yield "                    ";
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 182) >= 9)) {
+                    // line 183
+                    yield "                        ";
                     $context["scoreColor"] = "score-success";
-                    // line 164
-                    yield "                            ";
-                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 164) >= 6)) {
-                    // line 165
-                    yield "                                ";
+                    // line 184
+                    yield "                    ";
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 184) >= 6)) {
+                    // line 185
+                    yield "                        ";
                     $context["scoreColor"] = "score-warning";
-                    // line 166
-                    yield "                            ";
+                    // line 186
+                    yield "                    ";
                 }
-                // line 167
-                yield "                            
-                            <tr>
-                                <td class=\"text-center\">";
-                // line 169
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "number", [], "any", false, false, false, 169), "html", null, true);
+                // line 187
+                yield "                    
+                    <tr>
+                        <td class=\"text-center\">";
+                // line 189
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "number", [], "any", false, false, false, 189), "html", null, true);
                 yield "</td>
-                                <td>";
-                // line 170
-                yield CoreExtension::getAttribute($this->env, $this->source, $context["item"], "criterion", [], "any", false, false, false, 170);
+                        <td style=\"font-size: 11px;\">";
+                // line 190
+                yield CoreExtension::getAttribute($this->env, $this->source, $context["item"], "criterion", [], "any", false, false, false, 190);
                 yield "</td>
-                                <td class=\"text-center score-box ";
-                // line 171
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["scoreColor"]) || array_key_exists("scoreColor", $context) ? $context["scoreColor"] : (function () { throw new RuntimeError('Variable "scoreColor" does not exist.', 171, $this->source); })()), "html", null, true);
+                        <td style=\"font-size: 11px; color: #555;\">";
+                // line 191
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "docLocation", [], "any", false, false, false, 191), "html", null, true));
+                yield "</td>
+                        <td style=\"font-size: 11px; color: #555;\">";
+                // line 192
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "verifiedDoc", [], "any", false, false, false, 192), "html", null, true));
+                yield "</td>
+                        <td style=\"font-size: 11px; color: #d9534f;\">";
+                // line 193
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "observation", [], "any", false, false, false, 193), "html", null, true));
+                yield "</td>
+                        <td class=\"text-center score-box ";
+                // line 194
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["scoreColor"]) || array_key_exists("scoreColor", $context) ? $context["scoreColor"] : (function () { throw new RuntimeError('Variable "scoreColor" does not exist.', 194, $this->source); })()), "html", null, true);
                 yield "\">";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 171), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "score", [], "any", false, false, false, 194), "html", null, true);
                 yield "</td>
-                            </tr>
-                        ";
+                    </tr>
+                ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['item'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 174
-            yield "                    </tbody>
-                </table>
-            </div>
-
-            <div class=\"col-right\">
-                ";
-            // line 179
-            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["area"], "chartBase64", [], "any", false, false, false, 179)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                // line 180
-                yield "                    <img src=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["area"], "chartBase64", [], "any", false, false, false, 180), "html", null, true);
-                yield "\" alt=\"Gráfico del Área\" style=\"max-width: 100%; height: auto;\">
-                ";
-            }
-            // line 182
-            yield "            </div>
-        </div>
+            // line 197
+            yield "            </tbody>
+        </table>
     </div>
     ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['area'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 186
+        // line 201
         yield "
     <!-- HOJA FINAL DE DESAFÍOS Y BRECHAS -->
     <div>
@@ -321,56 +343,56 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
         </div>
         
         ";
-        // line 193
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["challenges"]) || array_key_exists("challenges", $context) ? $context["challenges"] : (function () { throw new RuntimeError('Variable "challenges" does not exist.', 193, $this->source); })())) > 0)) {
-            // line 194
+        // line 208
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["challenges"]) || array_key_exists("challenges", $context) ? $context["challenges"] : (function () { throw new RuntimeError('Variable "challenges" does not exist.', 208, $this->source); })())) > 0)) {
+            // line 209
             yield "        <table>
             <thead>
                 <tr>
-                    <th width=\"15%\">Área Estratégica</th>
-                    <th width=\"20%\">Criterio</th>
-                    <th width=\"5%\">Nro</th>
-                    <th width=\"20%\">Riesgo Identificado</th>
-                    <th width=\"10%\">Plazo</th>
-                    <th width=\"10%\">Responsable</th>
-                    <th width=\"20%\">Acción / Comentario</th>
+                    <th style=\"width: 15%;\">Área Estratégica</th>
+                    <th style=\"width: 20%;\">Criterio</th>
+                    <th style=\"width: 4%;\">Nro</th>
+                    <th style=\"width: 22%;\">Riesgo Identificado</th>
+                    <th style=\"width: 8%;\">Plazo</th>
+                    <th style=\"width: 11%;\">Responsable</th>
+                    <th style=\"width: 20%;\">Acción / Comentario</th>
                 </tr>
             </thead>
             <tbody>
                 ";
-            // line 207
+            // line 222
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["challenges"]) || array_key_exists("challenges", $context) ? $context["challenges"] : (function () { throw new RuntimeError('Variable "challenges" does not exist.', 207, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["challenges"]) || array_key_exists("challenges", $context) ? $context["challenges"] : (function () { throw new RuntimeError('Variable "challenges" does not exist.', 222, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["plan"]) {
-                // line 208
+                // line 223
                 yield "                <tr>
-                    <td>";
-                // line 209
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "areaName", [], "any", false, false, false, 209), "html", null, true);
+                    <td style=\"font-size: 11px;\">";
+                // line 224
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "areaName", [], "any", false, false, false, 224), "html", null, true);
                 yield "</td>
-                    <td>";
-                // line 210
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "criterion", [], "any", false, false, false, 210), "html", null, true);
+                    <td style=\"font-size: 11px;\">";
+                // line 225
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "criterion", [], "any", false, false, false, 225), "html", null, true);
                 yield "</td>
                     <td class=\"text-center\">";
-                // line 211
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "number", [], "any", false, false, false, 211), "html", null, true);
+                // line 226
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "number", [], "any", false, false, false, 226), "html", null, true);
                 yield "</td>
-                    <td>";
-                // line 212
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "risk", [], "any", false, false, false, 212), "html", null, true);
+                    <td style=\"font-size: 11px;\">";
+                // line 227
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "risk", [], "any", false, false, false, 227), "html", null, true));
                 yield "</td>
-                    <td>";
-                // line 213
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "timeframe", [], "any", false, false, false, 213), "html", null, true);
+                    <td class=\"text-center\" style=\"font-size: 11px;\">";
+                // line 228
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "timeframe", [], "any", false, false, false, 228), "html", null, true));
                 yield "</td>
-                    <td>";
-                // line 214
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "responsible", [], "any", false, false, false, 214), "html", null, true);
+                    <td style=\"font-size: 11px;\">";
+                // line 229
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "responsible", [], "any", false, false, false, 229), "html", null, true));
                 yield "</td>
-                    <td>";
-                // line 215
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "action", [], "any", false, false, false, 215), "html", null, true);
+                    <td style=\"font-size: 11px;\">";
+                // line 230
+                yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "action", [], "any", false, false, false, 230), "html", null, true));
                 yield "</td>
                 </tr>
                 ";
@@ -378,18 +400,18 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['plan'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 218
+            // line 233
             yield "            </tbody>
         </table>
         ";
         } else {
-            // line 221
+            // line 236
             yield "        <p style=\"text-align:center; padding: 20px; border: 1px dashed #ccc;\">
             No se identificaron brechas críticas (puntajes menores o iguales a 5) en esta evaluación.
         </p>
         ";
         }
-        // line 225
+        // line 240
         yield "    </div>
 
 </body>
@@ -422,7 +444,7 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  393 => 225,  387 => 221,  382 => 218,  373 => 215,  369 => 214,  365 => 213,  361 => 212,  357 => 211,  353 => 210,  349 => 209,  346 => 208,  342 => 207,  327 => 194,  325 => 193,  316 => 186,  307 => 182,  301 => 180,  299 => 179,  292 => 174,  281 => 171,  277 => 170,  273 => 169,  269 => 167,  266 => 166,  263 => 165,  260 => 164,  257 => 163,  254 => 162,  251 => 161,  247 => 160,  230 => 146,  226 => 144,  222 => 143,  214 => 138,  210 => 137,  206 => 135,  202 => 133,  195 => 132,  188 => 131,  182 => 130,  179 => 129,  177 => 128,  171 => 125,  45 => 1,);
+        return array (  415 => 240,  409 => 236,  404 => 233,  395 => 230,  391 => 229,  387 => 228,  383 => 227,  379 => 226,  375 => 225,  371 => 224,  368 => 223,  364 => 222,  349 => 209,  347 => 208,  338 => 201,  329 => 197,  318 => 194,  314 => 193,  310 => 192,  306 => 191,  302 => 190,  298 => 189,  294 => 187,  291 => 186,  288 => 185,  285 => 184,  282 => 183,  279 => 182,  276 => 181,  272 => 180,  257 => 167,  251 => 164,  248 => 163,  246 => 162,  240 => 159,  236 => 157,  232 => 156,  224 => 151,  220 => 149,  216 => 147,  209 => 146,  202 => 145,  196 => 144,  193 => 143,  191 => 142,  185 => 139,  45 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -464,9 +486,13 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-top: 50px;
         }
         .cover-logos img {
-            max-height: 80px;
-            margin: 0 15px;
+            max-height: 60px; /* Reducido */
+            margin: 0 25px; /* Más espacio para separar */
             display: inline-block;
+            vertical-align: middle;
+        }
+        .cover-logos img.logo-center {
+            max-height: 160px; /* Masivo en comparación */
         }
         .cover-footer {
             margin-top: 100px;
@@ -485,6 +511,7 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-bottom: 20px;
             border: 1px solid #b8daff;
             border-radius: 4px;
+            page-break-after: avoid;
         }
 
         /* Columnas para dompdf (flotantes) */
@@ -493,34 +520,42 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             clear: both;
             display: table;
         }
-        .col-left {
-            float: left;
-            width: 60%;
-        }
-        .col-right {
-            float: right;
-            width: 35%;
+        .chart-container {
             text-align: center;
-            padding-top: 20px;
+            margin-bottom: 30px;
+            page-break-after: avoid;
+        }
+        .chart-container img {
+            max-height: 250px;
         }
 
         /* Tablas */
         table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+        thead {
+            display: table-header-group;
+        }
+        tr {
+            page-break-inside: avoid;
+        }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
-            vertical-align: middle;
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         th {
             background-color: #f8f9fa;
             font-weight: bold;
             color: #495057;
             text-align: center;
+            vertical-align: middle;
         }
         td.text-center {
             text-align: center;
@@ -543,6 +578,7 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             margin-bottom: 20px;
             text-align: center;
             text-transform: uppercase;
+            page-break-after: avoid;
         }
     </style>
 </head>
@@ -556,15 +592,14 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
         
         {% if logos is defined %}
         <div class=\"cover-logos\">
-            {% if logos.ue %}<img src=\"{{ logos.ue }}\" alt=\"Unión Europea\">{% endif %}
-            {% if logos.gob %}<img src=\"{{ logos.gob }}\" alt=\"Gobierno\">{% endif %}
+            {% if logos.ue %}<img src=\"{{ logos.ue }}\" alt=\"EUDR\">{% endif %}
+            {% if logos.gob %}<img src=\"{{ logos.gob }}\" alt=\"Gobierno\" class=\"logo-center\">{% endif %}
             {% if logos.al_invest %}<img src=\"{{ logos.al_invest }}\" alt=\"AL INVEST\">{% endif %}
         </div>
         {% endif %}
 
         <div class=\"cover-footer\">
-            <p>Empresa: <strong>{{ session.organization.name ?? 'No especificada' }}</strong></p>
-            <p>Fecha de Generación: {{ \"now\"|date('d/m/Y H:i') }}</p>
+            <p>Empresa: <strong>{{ companyName }}</strong></p>
         </div>
     </div>
 
@@ -575,41 +610,43 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
             {{ area.name }}
         </div>
 
-        <div class=\"clearfix\">
-            <div class=\"col-left\">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width=\"10%\">Nro</th>
-                            <th width=\"70%\">Criterio</th>
-                            <th width=\"20%\">Resultado<br><small>(sobre 10)</small></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in area.items %}
-                            {% set scoreColor = 'score-danger' %}
-                            {% if item.score >= 9 %}
-                                {% set scoreColor = 'score-success' %}
-                            {% elseif item.score >= 6 %}
-                                {% set scoreColor = 'score-warning' %}
-                            {% endif %}
-                            
-                            <tr>
-                                <td class=\"text-center\">{{ item.number }}</td>
-                                <td>{{ item.criterion|raw }}</td>
-                                <td class=\"text-center score-box {{ scoreColor }}\">{{ item.score }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class=\"col-right\">
-                {% if area.chartBase64 %}
-                    <img src=\"{{ area.chartBase64 }}\" alt=\"Gráfico del Área\" style=\"max-width: 100%; height: auto;\">
-                {% endif %}
-            </div>
+        {% if area.chartBase64 %}
+        <div class=\"chart-container\">
+            <img src=\"{{ area.chartBase64 }}\" alt=\"Gráfico del Área\">
         </div>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th style=\"width: 4%;\">Nro</th>
+                    <th style=\"width: 22%;\">Criterio</th>
+                    <th style=\"width: 25%;\">Indique qué documentación tiene y dónde está almacenada según este criterio</th>
+                    <th style=\"width: 15%;\">¿Cuál es el documento verificado?</th>
+                    <th style=\"width: 25%;\">Observación / Riesgo Identificado</th>
+                    <th style=\"width: 9%;\">Resultado<br><small>(sobre 10)</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in area.items %}
+                    {% set scoreColor = 'score-danger' %}
+                    {% if item.score >= 9 %}
+                        {% set scoreColor = 'score-success' %}
+                    {% elseif item.score >= 6 %}
+                        {% set scoreColor = 'score-warning' %}
+                    {% endif %}
+                    
+                    <tr>
+                        <td class=\"text-center\">{{ item.number }}</td>
+                        <td style=\"font-size: 11px;\">{{ item.criterion|raw }}</td>
+                        <td style=\"font-size: 11px; color: #555;\">{{ item.docLocation|nl2br }}</td>
+                        <td style=\"font-size: 11px; color: #555;\">{{ item.verifiedDoc|nl2br }}</td>
+                        <td style=\"font-size: 11px; color: #d9534f;\">{{ item.observation|nl2br }}</td>
+                        <td class=\"text-center score-box {{ scoreColor }}\">{{ item.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     {% endfor %}
 
@@ -623,25 +660,25 @@ class __TwigTemplate_309b571f1935f3acb7a3dc5676fef263 extends Template
         <table>
             <thead>
                 <tr>
-                    <th width=\"15%\">Área Estratégica</th>
-                    <th width=\"20%\">Criterio</th>
-                    <th width=\"5%\">Nro</th>
-                    <th width=\"20%\">Riesgo Identificado</th>
-                    <th width=\"10%\">Plazo</th>
-                    <th width=\"10%\">Responsable</th>
-                    <th width=\"20%\">Acción / Comentario</th>
+                    <th style=\"width: 15%;\">Área Estratégica</th>
+                    <th style=\"width: 20%;\">Criterio</th>
+                    <th style=\"width: 4%;\">Nro</th>
+                    <th style=\"width: 22%;\">Riesgo Identificado</th>
+                    <th style=\"width: 8%;\">Plazo</th>
+                    <th style=\"width: 11%;\">Responsable</th>
+                    <th style=\"width: 20%;\">Acción / Comentario</th>
                 </tr>
             </thead>
             <tbody>
                 {% for plan in challenges %}
                 <tr>
-                    <td>{{ plan.areaName }}</td>
-                    <td>{{ plan.criterion }}</td>
+                    <td style=\"font-size: 11px;\">{{ plan.areaName }}</td>
+                    <td style=\"font-size: 11px;\">{{ plan.criterion }}</td>
                     <td class=\"text-center\">{{ plan.number }}</td>
-                    <td>{{ plan.risk }}</td>
-                    <td>{{ plan.timeframe }}</td>
-                    <td>{{ plan.responsible }}</td>
-                    <td>{{ plan.action }}</td>
+                    <td style=\"font-size: 11px;\">{{ plan.risk|nl2br }}</td>
+                    <td class=\"text-center\" style=\"font-size: 11px;\">{{ plan.timeframe|nl2br }}</td>
+                    <td style=\"font-size: 11px;\">{{ plan.responsible|nl2br }}</td>
+                    <td style=\"font-size: 11px;\">{{ plan.action|nl2br }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

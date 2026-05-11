@@ -131,21 +131,21 @@ class __TwigTemplate_3c273a3d60ee195cb676a01a0ca9184b extends Template
                                     <input type=\"text\" class=\"form-control\" name=\"resp_";
                 // line 36
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["ind"]) || array_key_exists("ind", $context) ? $context["ind"] : (function () { throw new RuntimeError('Variable "ind" does not exist.', 36, $this->source); })()), "id", [], "any", false, false, false, 36), "html", null, true);
-                yield "\" placeholder=\"Ej. Gerente, RRHH...\" required>
+                yield "\" placeholder=\"Ej. Gerente, RRHH...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                                 </div>
                                 <div class=\"col-md-4\">
                                     <label class=\"form-label fw-bold text-primary\">Plazo</label>
                                     <input type=\"text\" class=\"form-control\" name=\"time_";
                 // line 40
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["ind"]) || array_key_exists("ind", $context) ? $context["ind"] : (function () { throw new RuntimeError('Variable "ind" does not exist.', 40, $this->source); })()), "id", [], "any", false, false, false, 40), "html", null, true);
-                yield "\" placeholder=\"Ej. 2 meses, 1 semana...\" required>
+                yield "\" placeholder=\"Ej. 2 meses, 1 semana...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                                 </div>
                                 <div class=\"col-md-12\">
                                     <label class=\"form-label fw-bold text-primary\">Acción Específica a Realizar</label>
                                     <textarea class=\"form-control\" name=\"action_";
                 // line 44
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["ind"]) || array_key_exists("ind", $context) ? $context["ind"] : (function () { throw new RuntimeError('Variable "ind" does not exist.', 44, $this->source); })()), "id", [], "any", false, false, false, 44), "html", null, true);
-                yield "\" rows=\"2\" placeholder=\"Describa la acción correctiva...\" required></textarea>
+                yield "\" rows=\"2\" placeholder=\"Describa la acción correctiva...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -235,15 +235,15 @@ class __TwigTemplate_3c273a3d60ee195cb676a01a0ca9184b extends Template
                                 </div>
                                 <div class=\"col-md-4\">
                                     <label class=\"form-label fw-bold text-primary\">Responsable</label>
-                                    <input type=\"text\" class=\"form-control\" name=\"resp_{{ ind.id }}\" placeholder=\"Ej. Gerente, RRHH...\" required>
+                                    <input type=\"text\" class=\"form-control\" name=\"resp_{{ ind.id }}\" placeholder=\"Ej. Gerente, RRHH...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                                 </div>
                                 <div class=\"col-md-4\">
                                     <label class=\"form-label fw-bold text-primary\">Plazo</label>
-                                    <input type=\"text\" class=\"form-control\" name=\"time_{{ ind.id }}\" placeholder=\"Ej. 2 meses, 1 semana...\" required>
+                                    <input type=\"text\" class=\"form-control\" name=\"time_{{ ind.id }}\" placeholder=\"Ej. 2 meses, 1 semana...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                                 </div>
                                 <div class=\"col-md-12\">
                                     <label class=\"form-label fw-bold text-primary\">Acción Específica a Realizar</label>
-                                    <textarea class=\"form-control\" name=\"action_{{ ind.id }}\" rows=\"2\" placeholder=\"Describa la acción correctiva...\" required></textarea>
+                                    <textarea class=\"form-control\" name=\"action_{{ ind.id }}\" rows=\"2\" placeholder=\"Describa la acción correctiva...\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\"></textarea>
                                 </div>
                             </div>
                         </div>

@@ -35,9 +35,13 @@
             margin-top: 50px;
         }
         .cover-logos img {
-            max-height: 80px;
-            margin: 0 15px;
+            max-height: 60px; /* Reducido */
+            margin: 0 25px; /* Más espacio para separar */
             display: inline-block;
+            vertical-align: middle;
+        }
+        .cover-logos img.logo-center {
+            max-height: 160px; /* Masivo en comparación */
         }
         .cover-footer {
             margin-top: 100px;
@@ -56,6 +60,7 @@
             margin-bottom: 20px;
             border: 1px solid #b8daff;
             border-radius: 4px;
+            page-break-after: avoid;
         }
 
         /* Columnas para dompdf (flotantes) */
@@ -64,34 +69,42 @@
             clear: both;
             display: table;
         }
-        .col-left {
-            float: left;
-            width: 60%;
-        }
-        .col-right {
-            float: right;
-            width: 35%;
+        .chart-container {
             text-align: center;
-            padding-top: 20px;
+            margin-bottom: 30px;
+            page-break-after: avoid;
+        }
+        .chart-container img {
+            max-height: 250px;
         }
 
         /* Tablas */
         table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+        thead {
+            display: table-header-group;
+        }
+        tr {
+            page-break-inside: avoid;
+        }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
-            vertical-align: middle;
+            vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         th {
             background-color: #f8f9fa;
             font-weight: bold;
             color: #495057;
             text-align: center;
+            vertical-align: middle;
         }
         td.text-center {
             text-align: center;
@@ -114,6 +127,7 @@
             margin-bottom: 20px;
             text-align: center;
             text-transform: uppercase;
+            page-break-after: avoid;
         }
     </style>
 </head>
@@ -127,15 +141,14 @@
         
         {% if logos is defined %}
         <div class="cover-logos">
-            {% if logos.ue %}<img src="{{ logos.ue }}" alt="Unión Europea">{% endif %}
-            {% if logos.gob %}<img src="{{ logos.gob }}" alt="Gobierno">{% endif %}
+            {% if logos.ue %}<img src="{{ logos.ue }}" alt="EUDR">{% endif %}
+            {% if logos.gob %}<img src="{{ logos.gob }}" alt="Gobierno" class="logo-center">{% endif %}
             {% if logos.al_invest %}<img src="{{ logos.al_invest }}" alt="AL INVEST">{% endif %}
         </div>
         {% endif %}
 
         <div class="cover-footer">
-            <p>Empresa: <strong>{{ session.organization.name ?? 'No especificada' }}</strong></p>
-            <p>Fecha de Generación: {{ "now"|date('d/m/Y H:i') }}</p>
+            <p>Empresa: <strong>{{ companyName }}</strong></p>
         </div>
     </div>
 
@@ -146,41 +159,43 @@
             {{ area.name }}
         </div>
 
-        <div class="clearfix">
-            <div class="col-left">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="10%">Nro</th>
-                            <th width="70%">Criterio</th>
-                            <th width="20%">Resultado<br><small>(sobre 10)</small></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in area.items %}
-                            {% set scoreColor = 'score-danger' %}
-                            {% if item.score >= 9 %}
-                                {% set scoreColor = 'score-success' %}
-                            {% elseif item.score >= 6 %}
-                                {% set scoreColor = 'score-warning' %}
-                            {% endif %}
-                            
-                            <tr>
-                                <td class="text-center">{{ item.number }}</td>
-                                <td>{{ item.criterion|raw }}</td>
-                                <td class="text-center score-box {{ scoreColor }}">{{ item.score }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-right">
-                {% if area.chartBase64 %}
-                    <img src="{{ area.chartBase64 }}" alt="Gráfico del Área" style="max-width: 100%; height: auto;">
-                {% endif %}
-            </div>
+        {% if area.chartBase64 %}
+        <div class="chart-container">
+            <img src="{{ area.chartBase64 }}" alt="Gráfico del Área">
         </div>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 4%;">Nro</th>
+                    <th style="width: 22%;">Criterio</th>
+                    <th style="width: 25%;">Indique qué documentación tiene y dónde está almacenada según este criterio</th>
+                    <th style="width: 15%;">¿Cuál es el documento verificado?</th>
+                    <th style="width: 25%;">Observación / Riesgo Identificado</th>
+                    <th style="width: 9%;">Resultado<br><small>(sobre 10)</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in area.items %}
+                    {% set scoreColor = 'score-danger' %}
+                    {% if item.score >= 9 %}
+                        {% set scoreColor = 'score-success' %}
+                    {% elseif item.score >= 6 %}
+                        {% set scoreColor = 'score-warning' %}
+                    {% endif %}
+                    
+                    <tr>
+                        <td class="text-center">{{ item.number }}</td>
+                        <td style="font-size: 11px;">{{ item.criterion|raw }}</td>
+                        <td style="font-size: 11px; color: #555;">{{ item.docLocation|nl2br }}</td>
+                        <td style="font-size: 11px; color: #555;">{{ item.verifiedDoc|nl2br }}</td>
+                        <td style="font-size: 11px; color: #d9534f;">{{ item.observation|nl2br }}</td>
+                        <td class="text-center score-box {{ scoreColor }}">{{ item.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     {% endfor %}
 
@@ -194,25 +209,25 @@
         <table>
             <thead>
                 <tr>
-                    <th width="15%">Área Estratégica</th>
-                    <th width="20%">Criterio</th>
-                    <th width="5%">Nro</th>
-                    <th width="20%">Riesgo Identificado</th>
-                    <th width="10%">Plazo</th>
-                    <th width="10%">Responsable</th>
-                    <th width="20%">Acción / Comentario</th>
+                    <th style="width: 15%;">Área Estratégica</th>
+                    <th style="width: 20%;">Criterio</th>
+                    <th style="width: 4%;">Nro</th>
+                    <th style="width: 22%;">Riesgo Identificado</th>
+                    <th style="width: 8%;">Plazo</th>
+                    <th style="width: 11%;">Responsable</th>
+                    <th style="width: 20%;">Acción / Comentario</th>
                 </tr>
             </thead>
             <tbody>
                 {% for plan in challenges %}
                 <tr>
-                    <td>{{ plan.areaName }}</td>
-                    <td>{{ plan.criterion }}</td>
+                    <td style="font-size: 11px;">{{ plan.areaName }}</td>
+                    <td style="font-size: 11px;">{{ plan.criterion }}</td>
                     <td class="text-center">{{ plan.number }}</td>
-                    <td>{{ plan.risk }}</td>
-                    <td>{{ plan.timeframe }}</td>
-                    <td>{{ plan.responsible }}</td>
-                    <td>{{ plan.action }}</td>
+                    <td style="font-size: 11px;">{{ plan.risk|nl2br }}</td>
+                    <td class="text-center" style="font-size: 11px;">{{ plan.timeframe|nl2br }}</td>
+                    <td style="font-size: 11px;">{{ plan.responsible|nl2br }}</td>
+                    <td style="font-size: 11px;">{{ plan.action|nl2br }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -60,12 +60,78 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/css/bootstrap.min.css"), "html", null, true);
         yield "\" rel=\"stylesheet\">
     <style>
-        body { background-color: #f8f9fa; }
-        .public-container { max-width: 800px; margin: 0 auto; margin-top: 50px; }
-        .institutional-header { text-align: center; margin-bottom: 40px; }
+        body { 
+            background-color: #f8f9fa; 
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        /* Contenedor del Carrusel de Fondo */
+        #bg-carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #343a40;
+            overflow: hidden;
+        }
+        #bg-carousel::after {
+            content: \"\";
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55); /* Capa oscura para estética */
+            z-index: 1;
+        }
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .bg-slide.active {
+            opacity: 1;
+        }
+
+        /* Ajuste del contenedor principal para que sea legible sobre el fondo */
+        .public-container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            margin-top: 50px; 
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        .institutional-header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .institutional-header h2 { 
+            color: #ffffff !important; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+        }
+        .institutional-header p { 
+            color: #e2e8f0 !important; 
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
+    <!-- Contenedor del fondo animado -->
+    <div id=\"bg-carousel\"></div>
     <div class=\"container public-container\">
         <div class=\"institutional-header\">
             <h2 class=\"text-primary fw-bold\">Viceministerio de Comercio y Logística Interna</h2>
@@ -74,9 +140,9 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         
         <main>
             ";
-        // line 23
+        // line 89
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 24
+        // line 90
         yield "        </main>
         
         <footer class=\"mt-5 text-center text-muted small pb-4\">
@@ -84,10 +150,88 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         </footer>
     </div>
     ";
-        // line 30
+        // line 96
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 31
-        yield "</body>
+        // line 97
+        yield "    
+    <script>
+    document.addEventListener(\"DOMContentLoaded\", function() {
+        const bgFolder = \"";
+        // line 100
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/backgrounds"), "html", null, true);
+        yield "/\";
+        const maxImagesToTry = 20;
+        const carousel = document.getElementById('bg-carousel');
+
+        function appendSlide(src, isActive) {
+            const div = document.createElement('div');
+            div.className = 'bg-slide' + (isActive ? ' active' : '');
+            div.style.backgroundImage = 'url(\"' + src + '\")';
+            carousel.appendChild(div);
+        }
+
+        function startTimeBasedCarousel(validImages) {
+            let startTime = sessionStorage.getItem('bg_start_time');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('bg_start_time', startTime);
+            }
+
+            // Limpiamos el carrusel para evitar duplicados del cargador inicial
+            carousel.innerHTML = '';
+            validImages.forEach((src) => appendSlide(src, false));
+
+            function updateSlide() {
+                const elapsed = Date.now() - parseInt(startTime);
+                const current = Math.floor(elapsed / 30000) % validImages.length;
+                
+                const slides = document.querySelectorAll('.bg-slide');
+                slides.forEach((s, idx) => {
+                    if (idx === current) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            }
+
+            updateSlide(); // Ejecutar inmediatamente
+            setInterval(updateSlide, 1000); // Revisar cada segundo para la transición exacta
+        }
+
+        let storedImages = sessionStorage.getItem('bg_images');
+        if (storedImages) {
+            startTimeBasedCarousel(JSON.parse(storedImages));
+        } else {
+            let validImages = [];
+            function checkImage(index) {
+                if (index > maxImagesToTry) {
+                    if (validImages.length > 0) {
+                        sessionStorage.setItem('bg_images', JSON.stringify(validImages));
+                        startTimeBasedCarousel(validImages);
+                    }
+                    return;
+                }
+                const imgPath = bgFolder + index + '.jpg?v=2';
+                const img = new Image();
+                img.onload = function() {
+                    validImages.push(imgPath);
+                    if (validImages.length === 1) {
+                        // Mostrar la primera imagen instantáneamente mientras carga el resto
+                        appendSlide(imgPath, true);
+                    }
+                    checkImage(index + 1);
+                };
+                img.onerror = function() {
+                    checkImage(index + 1);
+                };
+                img.src = imgPath;
+            }
+            checkImage(1);
+        }
+    });
+    </script>
+</body>
 </html>
 ";
         
@@ -113,7 +257,7 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         yield from [];
     }
 
-    // line 23
+    // line 89
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -129,7 +273,7 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         yield from [];
     }
 
-    // line 30
+    // line 96
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -166,7 +310,7 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  133 => 30,  117 => 23,  100 => 6,  90 => 31,  88 => 30,  80 => 24,  78 => 23,  60 => 8,  55 => 6,  48 => 1,);
+        return array (  277 => 96,  261 => 89,  244 => 6,  161 => 100,  156 => 97,  154 => 96,  146 => 90,  144 => 89,  60 => 8,  55 => 6,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -180,12 +324,78 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
     <!-- Bootstrap CSS -->
     <link href=\"{{ asset('assets/css/bootstrap.min.css') }}\" rel=\"stylesheet\">
     <style>
-        body { background-color: #f8f9fa; }
-        .public-container { max-width: 800px; margin: 0 auto; margin-top: 50px; }
-        .institutional-header { text-align: center; margin-bottom: 40px; }
+        body { 
+            background-color: #f8f9fa; 
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        /* Contenedor del Carrusel de Fondo */
+        #bg-carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #343a40;
+            overflow: hidden;
+        }
+        #bg-carousel::after {
+            content: \"\";
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55); /* Capa oscura para estética */
+            z-index: 1;
+        }
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .bg-slide.active {
+            opacity: 1;
+        }
+
+        /* Ajuste del contenedor principal para que sea legible sobre el fondo */
+        .public-container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            margin-top: 50px; 
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        .institutional-header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .institutional-header h2 { 
+            color: #ffffff !important; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+        }
+        .institutional-header p { 
+            color: #e2e8f0 !important; 
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
+    <!-- Contenedor del fondo animado -->
+    <div id=\"bg-carousel\"></div>
     <div class=\"container public-container\">
         <div class=\"institutional-header\">
             <h2 class=\"text-primary fw-bold\">Viceministerio de Comercio y Logística Interna</h2>
@@ -201,6 +411,81 @@ class __TwigTemplate_2be289c7b4b64c7eaa168f1094c0c60d extends Template
         </footer>
     </div>
     {% block javascripts %}{% endblock %}
+    
+    <script>
+    document.addEventListener(\"DOMContentLoaded\", function() {
+        const bgFolder = \"{{ asset('images/backgrounds') }}/\";
+        const maxImagesToTry = 20;
+        const carousel = document.getElementById('bg-carousel');
+
+        function appendSlide(src, isActive) {
+            const div = document.createElement('div');
+            div.className = 'bg-slide' + (isActive ? ' active' : '');
+            div.style.backgroundImage = 'url(\"' + src + '\")';
+            carousel.appendChild(div);
+        }
+
+        function startTimeBasedCarousel(validImages) {
+            let startTime = sessionStorage.getItem('bg_start_time');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('bg_start_time', startTime);
+            }
+
+            // Limpiamos el carrusel para evitar duplicados del cargador inicial
+            carousel.innerHTML = '';
+            validImages.forEach((src) => appendSlide(src, false));
+
+            function updateSlide() {
+                const elapsed = Date.now() - parseInt(startTime);
+                const current = Math.floor(elapsed / 30000) % validImages.length;
+                
+                const slides = document.querySelectorAll('.bg-slide');
+                slides.forEach((s, idx) => {
+                    if (idx === current) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            }
+
+            updateSlide(); // Ejecutar inmediatamente
+            setInterval(updateSlide, 1000); // Revisar cada segundo para la transición exacta
+        }
+
+        let storedImages = sessionStorage.getItem('bg_images');
+        if (storedImages) {
+            startTimeBasedCarousel(JSON.parse(storedImages));
+        } else {
+            let validImages = [];
+            function checkImage(index) {
+                if (index > maxImagesToTry) {
+                    if (validImages.length > 0) {
+                        sessionStorage.setItem('bg_images', JSON.stringify(validImages));
+                        startTimeBasedCarousel(validImages);
+                    }
+                    return;
+                }
+                const imgPath = bgFolder + index + '.jpg?v=2';
+                const img = new Image();
+                img.onload = function() {
+                    validImages.push(imgPath);
+                    if (validImages.length === 1) {
+                        // Mostrar la primera imagen instantáneamente mientras carga el resto
+                        appendSlide(imgPath, true);
+                    }
+                    checkImage(index + 1);
+                };
+                img.onerror = function() {
+                    checkImage(index + 1);
+                };
+                img.src = imgPath;
+            }
+            checkImage(1);
+        }
+    });
+    </script>
 </body>
 </html>
 ", "public_base.html.twig", "/var/www/html/templates/public_base.html.twig");

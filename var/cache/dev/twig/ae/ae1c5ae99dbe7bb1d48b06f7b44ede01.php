@@ -78,7 +78,7 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
             <div class=\"row g-4\">
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Nombre de la Empresa *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"companyName\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"companyName\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Nombre Comercial</label>
@@ -87,7 +87,7 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Representante Legal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"legalRepresentative\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"legalRepresentative\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-3\">
                     <label class=\"form-label fw-bold\">Año de Fundación</label>
@@ -100,20 +100,20 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Teléfono de Contacto *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"phone\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"phone\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Correo Electrónico *</label>
-                    <input type=\"email\" class=\"form-control\" name=\"email\" required>
+                    <input type=\"email\" class=\"form-control\" name=\"email\" required oninvalid=\"this.setCustomValidity(this.validity.typeMismatch ? 'Por favor, ingrese un correo válido.' : 'Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Actividad Principal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"mainActivity\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"mainActivity\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Producto Principal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"mainProduct\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"mainProduct\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
 
                 <div class=\"col-12\">
@@ -185,7 +185,7 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
             <div class=\"row g-4\">
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Nombre de la Empresa *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"companyName\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"companyName\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Nombre Comercial</label>
@@ -194,7 +194,7 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Representante Legal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"legalRepresentative\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"legalRepresentative\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-3\">
                     <label class=\"form-label fw-bold\">Año de Fundación</label>
@@ -207,20 +207,20 @@ class __TwigTemplate_85d9d75103bd55d55aa7c3a1f64830eb extends Template
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Teléfono de Contacto *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"phone\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"phone\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Correo Electrónico *</label>
-                    <input type=\"email\" class=\"form-control\" name=\"email\" required>
+                    <input type=\"email\" class=\"form-control\" name=\"email\" required oninvalid=\"this.setCustomValidity(this.validity.typeMismatch ? 'Por favor, ingrese un correo válido.' : 'Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
 
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Actividad Principal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"mainActivity\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"mainActivity\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
                 <div class=\"col-md-6\">
                     <label class=\"form-label fw-bold\">Producto Principal *</label>
-                    <input type=\"text\" class=\"form-control\" name=\"mainProduct\" required>
+                    <input type=\"text\" class=\"form-control\" name=\"mainProduct\" required oninvalid=\"this.setCustomValidity('Por favor, complete este campo.')\" oninput=\"this.setCustomValidity('')\">
                 </div>
 
                 <div class=\"col-12\">

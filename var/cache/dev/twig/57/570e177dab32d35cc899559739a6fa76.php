@@ -183,7 +183,7 @@ class __TwigTemplate_43e3bff23261e007c98d87810eb876ae extends Template
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 74), "html", null, true);
             yield "\" value=\"1\" onchange=\"toggleDocFields(";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 74), "html", null, true);
-            yield ", true)\" required>
+            yield ", true)\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label\" for=\"has_doc_yes_";
             // line 75
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 75), "html", null, true);
@@ -197,7 +197,7 @@ class __TwigTemplate_43e3bff23261e007c98d87810eb876ae extends Template
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 78), "html", null, true);
             yield "\" value=\"0\" onchange=\"toggleDocFields(";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 78), "html", null, true);
-            yield ", false)\" required>
+            yield ", false)\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label\" for=\"has_doc_no_";
             // line 79
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 79), "html", null, true);
@@ -241,7 +241,7 @@ class __TwigTemplate_43e3bff23261e007c98d87810eb876ae extends Template
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 98), "html", null, true);
             yield "\" oninput=\"document.getElementById('out_";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 98), "html", null, true);
-            yield "').innerText = this.value\" required>
+            yield "').innerText = this.value\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                         <div class=\"text-center fw-bold fs-3 text-primary\" id=\"out_";
             // line 99
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["indicator"], "id", [], "any", false, false, false, 99), "html", null, true);
@@ -432,11 +432,11 @@ class __TwigTemplate_43e3bff23261e007c98d87810eb876ae extends Template
                         <label class=\"form-label fw-bold text-dark\">¿Cuenta con documentación?</label>
                         <div>
                             <div class=\"form-check form-check-inline\">
-                                <input class=\"form-check-input\" type=\"radio\" name=\"has_doc_{{ indicator.id }}\" id=\"has_doc_yes_{{ indicator.id }}\" value=\"1\" onchange=\"toggleDocFields({{ indicator.id }}, true)\" required>
+                                <input class=\"form-check-input\" type=\"radio\" name=\"has_doc_{{ indicator.id }}\" id=\"has_doc_yes_{{ indicator.id }}\" value=\"1\" onchange=\"toggleDocFields({{ indicator.id }}, true)\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label\" for=\"has_doc_yes_{{ indicator.id }}\">Sí</label>
                             </div>
                             <div class=\"form-check form-check-inline\">
-                                <input class=\"form-check-input\" type=\"radio\" name=\"has_doc_{{ indicator.id }}\" id=\"has_doc_no_{{ indicator.id }}\" value=\"0\" onchange=\"toggleDocFields({{ indicator.id }}, false)\" required>
+                                <input class=\"form-check-input\" type=\"radio\" name=\"has_doc_{{ indicator.id }}\" id=\"has_doc_no_{{ indicator.id }}\" value=\"0\" onchange=\"toggleDocFields({{ indicator.id }}, false)\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                                 <label class=\"form-check-label\" for=\"has_doc_no_{{ indicator.id }}\">No</label>
                             </div>
                         </div>
@@ -456,7 +456,7 @@ class __TwigTemplate_43e3bff23261e007c98d87810eb876ae extends Template
                 <div class=\"row g-4\">
                     <div class=\"col-md-4\">
                         <label class=\"form-label fw-bold text-primary\">Puntuación (1 al 10)</label>
-                        <input type=\"range\" class=\"form-range\" min=\"1\" max=\"10\" name=\"score_{{ indicator.id }}\" id=\"score_{{ indicator.id }}\" oninput=\"document.getElementById('out_{{ indicator.id }}').innerText = this.value\" required>
+                        <input type=\"range\" class=\"form-range\" min=\"1\" max=\"10\" name=\"score_{{ indicator.id }}\" id=\"score_{{ indicator.id }}\" oninput=\"document.getElementById('out_{{ indicator.id }}').innerText = this.value\" required oninvalid=\"this.setCustomValidity('Por favor, seleccione una opción.')\" oninput=\"this.setCustomValidity('')\">
                         <div class=\"text-center fw-bold fs-3 text-primary\" id=\"out_{{ indicator.id }}\">6</div>
                         <div class=\"small text-muted text-center\">1=Crítico | 10=Sólido</div>
                     </div>
